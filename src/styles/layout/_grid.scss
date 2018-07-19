@@ -1,0 +1,123 @@
+// $grid-gutter: $section-spacing;
+@mixin col-width($cols, $spacing) {
+  width: calc(100% / #{$cols} - (#{$spacing} * (#{$cols} - 1) / #{$cols}));
+  margin-right: $spacing;
+
+  &:nth-child(#{$cols}n + #{$cols}) {
+    margin-right: 0;
+  }
+}
+
+@mixin mobile-full-width() {
+  // @include mobile-only {
+    min-width: 100%;
+    margin-right: 0;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  // }
+}
+
+// START OF STYLES
+[data-layout~="v-row"] {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+
+  [data-layout~="v-col"] {
+    &:first-child {
+      flex-grow: 1;
+    }
+  }
+}
+
+[data-layout~="row"] {
+  // @include container(1200px);
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  // margin-bottom: $grid-gutter;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+[data-layout~="row--vert-align-center"] {
+  align-items: center;
+}
+
+
+[data-layout~="row--with-gutter"] {
+  // @include container(1200px + ($outer-gutter * 2));
+
+  // margin-bottom: $grid-gutter;
+  // padding-right: $outer-gutter;
+  // padding-left: $outer-gutter;
+}
+
+[data-layout~="row--2col"] {
+  & > [data-layout~="col"] {
+    // @include col-width(2, $grid-gutter);
+    @include mobile-full-width();
+  }
+}
+
+[data-layout~="row--2col-offset-right"] {
+  & > [data-layout~="col"] {
+    @include mobile-full-width();
+
+    &:first-child {
+      // width: calc(43.3% - (#{$grid-gutter} * (2 - 1) / 2));
+      // margin-right: $grid-gutter;
+    }
+    &:last-child {
+      // width: calc(56.7% - (#{$grid-gutter} * (2 - 1) / 2));
+      margin-right: 0;
+    }
+  }
+}
+
+[data-layout~="row--2col-no-gutter"] {
+  & > [data-layout~="col"] {
+    @include col-width(2, 0px);
+    @include mobile-full-width();
+  }
+}
+
+[data-layout~="row--2col-on-mobile"] {
+  & > [data-layout~="col"] {
+    // @include mobile-only {
+      // @include col-width(2, $grid-gutter);
+    }
+  // }
+}
+
+[data-layout~="row--3col"] {
+  & > [data-layout~="col"] {
+    // @include col-width(3, $grid-gutter);
+    @include mobile-full-width();
+  }
+}
+
+[data-layout~="row--4col"] {
+  & > [data-layout~="col"] {
+    // @include col-width(4, $grid-gutter);
+    @include mobile-full-width();
+  }
+}
+
+[data-layout~="col"] {
+  // @include mobile-only {
+    // margin-bottom: $grid-gutter;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  // }
+}

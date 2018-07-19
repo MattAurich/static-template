@@ -1,0 +1,41 @@
+{
+  "name": "static",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm run clean && npm run dev:styles | npm run dev:fonts | npm run dev:html | npm run dev:server | npm run dev:reloadBrowser",
+    "dev:html": "npm run copyHtml | watch 'npm run copyHtml' ./src/html --interval=1",
+    "dev:images": "npm run copyImages | watch 'npm run copyImages' ./src/images --interval=1",
+    "dev:fonts": "npm run copyFonts | watch 'npm run copyFonts' ./src/fonts --interval=1",
+    "dev:scripts": "cp ./src/js/*.js ./dist/assets/",
+    "dev:server": "http-server ./dist -c-1",
+    "dev:reloadBrowser": "livereload ./dist -w 1000",
+    "dev:styles": "npm run styles | watch 'npm run styles' ./src/styles --interval=1",
+    "prod": "npm run clean && npm run prod:styles | npm run prod:scripts",
+    "prod:styles": "npm run styles && npm run css:min",
+    "prod:scripts": "cp ./src/js/*.min.js ./dist/assets/",
+    "copyHtml": "node mustacheToHTML.js ./src/html/sections ./src/html/templates/",
+    "copyImages": "cp ./src/images/* ./dist/assets/",
+    "copyFonts": "cp ./src/fonts/* ./dist/assets/",
+    "styles": "npm run sass && npm run css",
+    "sass": "node-sass src/styles/main.scss -o ./dist/assets",
+    "css": "postcss --use autoprefixer -b 'last 2 versions' dist/assets/main.css --replace",
+    "css:min": "postcss --no-map --use cssnano < dist/assets/main.css > dist/assets/main.min.css",
+    "clean": "rm -rf ./dist && mkdir ./dist && mkdir ./dist/assets"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^8.5.0",
+    "cssnano": "^3.10.0",
+    "handlebars": "^4.0.11",
+    "http-server": "^0.11.1",
+    "livereload": "^0.7.0",
+    "node-sass": "^4.9.0",
+    "postcss": "^6.0.22",
+    "postcss-cli": "^5.0.0",
+    "showdown": "^1.8.6",
+    "watch": "^1.0.2"
+  }
+}
