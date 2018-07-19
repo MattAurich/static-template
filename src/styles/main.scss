@@ -3,6 +3,10 @@
 @import "variables/font";
 @import "variables/easing";
 
+@import "mixins/breakpoint";
+@import "mixins/container";
+@import "mixins/reset";
+
 @import "base/reset";
 
 @import "fonts/oswald";

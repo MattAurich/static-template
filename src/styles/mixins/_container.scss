@@ -1,0 +1,6 @@
+@mixin container($width) {
+  display: block;
+  width: $width;
+  margin-left: auto;
+  margin-right: auto;
+}
